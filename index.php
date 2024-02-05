@@ -38,14 +38,14 @@
             require "includes/user/changepwd.php";
             break;
         case 'post/add':
-            require "includes/post/add_post.php";
+            require "includes/post/add.php";
             break;
-         case 'post/edit':
-            require "includes/post/edit_post.php";
+        case 'post/edit':
+            require "includes/post/edit.php";
             break;
-         case 'post/delete':
-            require "includes/post/delete_post.php";
-            break;
+        case 'post/delete':
+            require "includes/post/delete.php";
+            break;    
 
         // pages routes
         case 'login':
@@ -77,7 +77,7 @@
              require 'pages/manage-users-add.php';
              break;
         case 'manage-users-edit':
-            $page_title = "Edit Users";
+            $page_title = "Edit Usert";
             require 'pages/manage-users-edit.php';
             break;
         case 'manage-users-changepwd':

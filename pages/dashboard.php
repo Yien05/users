@@ -4,7 +4,6 @@
     <?php require "parts/message_success.php"; ?>
     <div class="row">
       <!-- manage posts -->
-     
       <div class="col">
         <div class="card mb-2">
           <div class="card-body">
@@ -21,8 +20,7 @@
             </div>
           </div>
         </div>
-      </div><!-- .col -->
-     
+      </div>
       <!-- manage users -->
       <?php if ( isAdmin() ) : ?>    
       <div class="col">

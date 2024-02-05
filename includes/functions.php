@@ -16,50 +16,38 @@ function connectToDB() {
     $database_user,
     $database_password
   );
-   
-  return $database;
-}
-
-// set error message
-function setError( $error_message, $redirect_page ) {
-  $_SESSION["error"] = $error_message;
-  // redirect back to login page
-  header("Location: " . $redirect_page );
-  exit;
-}
-
-// is user logged in
-function isUserLoggedIn() {
-  return isset( $_SESSION["user"] );
-}
-
-// is logged in user is an admin
-function isAdmin() {
-  return isset( $_SESSION["user"]['role'] ) && $_SESSION["user"]['role'] === 'admin';
-}
-
-// is logged in user is an editor
-function isEditor() {
-
-}
-
-// is logged in user is a normal user
-function isUser() {
-
-}
-
-
-// is post logged in
-function isPostLoggedIn() {
-  return isset( $_SESSION["post"] );
-}
-
-// is logged in post is an admin
-function isPublish() {
-  return isset( $_SESSION["post"]['status'] ) && $_SESSION["post"]['status'] === 'publish';
-}
-
-// is logged in post is a normal post
-function isPost() {
-
-}
+      
+      return $database;
+  }
+  
+  // set error message
+  function setError( $error_message, $redirect_page ) {
+      $_SESSION["error"] = $error_message;
+      // redirect back to login page
+      header("Location: " . $redirect_page );
+      exit;
+  }
+  
+  // is user logged in
+  function isUserLoggedIn() {
+      return isset( $_SESSION["user"] );
+  }
+  
+  // is logged in user is an admin
+  function isAdmin() {
+      return isset( $_SESSION["user"]['role'] ) && $_SESSION["user"]['role'] === 'admin';
+  }
+  
+  // is logged in user is an editor
+  function isEditor() {
+      return isset( $_SESSION["user"]['role'] ) && $_SESSION["user"]['role'] === 'editor';
+  }
+  
+  function isAdminOrEditor() {
+      return isset( $_SESSION["user"]['role'] ) && ( $_SESSION["user"]['role'] === 'admin' || $_SESSION["user"]['role'] === 'editor' );
+  }
+  
+  // is logged in user is a normal user
+  function isUser() {
+  
+  }

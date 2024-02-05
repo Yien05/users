@@ -13,13 +13,18 @@ require "parts/header.php"; ?>
         <h1 class="h1">Add New Post</h1>
       </div>
       <div class="card mb-2 p-4">
-      <?php require "parts/message_error.php"; ?>
+        <?php require "parts/message_error.php"; ?>
         <form
           method="POST"
-          action="/post/add">
+          action="post/add"
+          >
           <div class="mb-3">
             <label for="post-title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="post-title" name="title" />
+            <input 
+              type="text" 
+              class="form-control" 
+              id="post-title"
+              name="title" />
           </div>
           <div class="mb-3">
             <label for="post-content" class="form-label">Content</label>
@@ -32,7 +37,7 @@ require "parts/header.php"; ?>
           </div>
           <div class="text-end">
             <button type="submit" class="btn btn-primary">Add</button>
-          </div> 
+          </div>
         </form>
       </div>
       <div class="text-center">
