@@ -14,11 +14,12 @@
   if ( isAdminOrEditor() ) {
     // 1. sql command
     $sql = "SELECT
-    posts.*,
-    users.name AS user_name
-  FROM posts 
-  JOIN users
-  ON posts.user_id = users.id ORDER BY id DESC"; // order by ID DESC
+       posts.*,
+       users.name AS user_name
+    FROM posts 
+    JOIN users
+    ON   posts.user_id = users.id 
+    ORDER BY id DESC"; // order by ID DESC
     // 2. prepare
     $query = $database->prepare( $sql );
     // 3. execute
@@ -26,11 +27,12 @@
   } else {
     // 1. sql command
    $sql = "SELECT
-    posts.*,
-    users.name AS user_name
-  FROM posts 
-  JOIN users
-  ON posts.user_id = users.id WHERE user_id = :user_id ORDER BY id DESC"; // order by ID DESC
+      posts.*,
+      users.name AS user_name
+   FROM posts 
+   JOIN users
+   ON posts.user_id = users.id WHERE user_id = :user_id 
+   ORDER BY id DESC"; // order by ID DESC
     // 2. prepare
     $query = $database->prepare( $sql );
     // 3. execute
