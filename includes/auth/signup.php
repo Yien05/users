@@ -11,43 +11,68 @@
 
     // Step 4: error checking
     // 4.1 make sure all the fields are not empty
-    if ( empty( $name ) || empty( $email ) || empty( $password ) || empty( $confirm_password ) ) {
-        setError( "All the fields are required.", '/signup' );
-    } else if ( $password !== $confirm_password ) {
+    if ( empty( $name ) ) {
+        setErrors( "Name field is required." );
+    } 
+
+    if ( empty( $email )  ) {
+        setErrors( "Email field is required." );
+    } 
+
+    if ( empty( $password ) ) {
+        setErrors( "Password field is required." );
+    } 
+
+    if (  empty( $confirm_password ) ) {
+        setErrors( "Confirm password field is required." );
+    } 
+    
+    if ( $password !== $confirm_password ) {
         // 4.2 - make sure password is match
-        setError( "The password is not match", '/signup' );
-    } else if ( strlen( $password ) < 8 ) {
+        setErrors( "The password is not match" );
+    } 
+    
+    if ( strlen( $password ) < 8 ) {
         // 4.3 - make sure the password length is at least 8 chars
-        setError( "Your password must be at least 8 characters", '/signup' );
+        setErrors( "Your password must be at least 8 characters" );
+    } 
+
+    if ( !empty( $_SESSION["error"] ) ) {
+        header("Location: /signup");
+        exit;
+    }
+
+    // step 5: make sure the email entered does not exists yet
+    $sql = "SELECT * FROM users where email = :email";
+    $query = $database->prepare( $sql );
+    $query->execute([
+        'email' => $email
+    ]);
+    $user = $query->fetch(); // get only one row of data
+
+    if ( empty( $user ) ) {
+        // step 6: create the user account
+            // 6.1 - sql command (recipe)
+            $sql = "INSERT INTO users (`name`,`email`,`password`) VALUES (:name, :email, :password)";
+            // 6.2 - prepare (put everything into th bowl)
+            $query = $database->prepare( $sql );
+            // 6.3 - execute (cook it)
+            $query->execute([
+                'name' => $name,
+                'email' => $email,
+                'password' => password_hash( $password, PASSWORD_DEFAULT )
+            ]);
+
+        // Step 7: redirect back to login
+        // set success message
+        $_SESSION["success"] = "Account has been created successfully. Please login with your email & password.";
+        header("Location: /login");
+        exit;
     } else {
-        // step 5: make sure the email entered does not exists yet
-        $sql = "SELECT * FROM users where email = :email";
-        $query = $database->prepare( $sql );
-        $query->execute([
-            'email' => $email
-        ]);
-        $user = $query->fetch(); // get only one row of data
+        setErrors("The email provided has already been used.");
+    }
 
-        if ( empty( $user ) ) {
-            // step 6: create the user account
-                // 6.1 - sql command (recipe)
-                $sql = "INSERT INTO users (`name`,`email`,`password`) VALUES (:name, :email, :password)";
-                // 6.2 - prepare (put everything into th bowl)
-                $query = $database->prepare( $sql );
-                // 6.3 - execute (cook it)
-                $query->execute([
-                    'name' => $name,
-                    'email' => $email,
-                    'password' => password_hash( $password, PASSWORD_DEFAULT )
-                ]);
-
-            // Step 7: redirect back to login
-            // set success message
-            $_SESSION["success"] = "Account has been created successfully. Please login with your email & password.";
-            header("Location: /login");
-            exit;
-        } else {
-            setError("The email provided has already been used.","/signup");
-        }
-
-    } // end - step 4
+    if ( !empty( $_SESSION["error"] ) ) {
+        header("Location: /signup");
+        exit;
+    }
