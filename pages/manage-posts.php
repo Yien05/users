@@ -13,26 +13,27 @@
   // get all the posts
   if ( isAdminOrEditor() ) {
     // 1. sql command
-    $sql = "SELECT
-       posts.*,
-       users.name AS user_name
-    FROM posts 
-    JOIN users
-    ON   posts.user_id = users.id 
-    ORDER BY id DESC"; // order by ID DESC
+    $sql = "SELECT 
+        posts.*,
+        users.name AS user_name
+      FROM posts 
+      JOIN users
+      ON posts.user_id = users.id
+      ORDER BY posts.id DESC"; // order by ID DESC
     // 2. prepare
     $query = $database->prepare( $sql );
     // 3. execute
     $query->execute();
   } else {
     // 1. sql command
-   $sql = "SELECT
+    $sql = "SELECT 
       posts.*,
       users.name AS user_name
-   FROM posts 
-   JOIN users
-   ON posts.user_id = users.id WHERE user_id = :user_id 
-   ORDER BY id DESC"; // order by ID DESC
+    FROM posts 
+    JOIN users
+    ON posts.user_id = users.id
+    WHERE user_id = :user_id 
+    ORDER BY id DESC"; // order by ID DESC
     // 2. prepare
     $query = $database->prepare( $sql );
     // 3. execute
@@ -80,7 +81,7 @@ require "parts/header.php"; ?>
             </td>
             <td>
               <!-- print user's name here --->
-             <strong><?php echo $post['user_name'];?></strong>
+              <?= $post["user_name"]; ?>
             </td>
             <td class="text-end">
               <div class="buttons">

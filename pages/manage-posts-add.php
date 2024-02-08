@@ -17,6 +17,7 @@ require "parts/header.php"; ?>
         <form
           method="POST"
           action="post/add"
+          enctype="multipart/form-data"
           >
           <div class="mb-3">
             <label for="post-title" class="form-label">Title</label>
@@ -34,6 +35,12 @@ require "parts/header.php"; ?>
               rows="10"
               name="content"
             ></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Image</label>
+            <div>
+              <input type="file" name="image" />
+             </div>
           </div>
           <div class="text-end">
             <button type="submit" class="btn btn-primary">Add</button>

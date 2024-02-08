@@ -34,6 +34,7 @@ require "parts/header.php" ?>
         <form
           method="POST" 
           action="/post/edit"
+          enctype="multipart/form-data"
           >
           <div class="mb-3">
             <label for="post-title" class="form-label">Title</label>
@@ -62,6 +63,18 @@ require "parts/header.php" ?>
                 <option value="publish" <?= $post["status"] === 'publish' ? "selected" : "" ?>>Publish</option>
               <?php endif; ?>
             </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Image</label>
+            <div>
+              <input type="file" name="image" />
+              <?php if ( !empty( $post["image"] ) ) : ?>
+                <div>
+                  <img src="/<?= $post["image"]; ?>" width="150px" class="mt-1" />
+                  <input type="hidden" name="original_image" value="<?= $post["image"]; ?>" />
+                </div>
+              <?php endif; ?>
+             </div>
           </div>
           <div class="text-end">
             <input
